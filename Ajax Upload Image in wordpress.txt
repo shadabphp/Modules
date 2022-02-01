@@ -1,0 +1,71 @@
+<!---------------------Html Code -------------------->
+
+<form method="post" enctype="multipart/form-data" id="form_data">
+	<div class="file-drop-area"> <span class="choose-file-button">Upload Picture</span> <span class="file-message">or Drag and Drop</span> 
+<input class="file-input video_img" name="video_img" type="file" accept=".jpg,.jpeg,.png,.gif">
+	
+            </div>
+	<button class="frm_button_submit frm_final_submit" type="submit">SUBMIT</button>
+	<p class="msg"></p>
+	</form>
+<!---------------------Jquery Code -------------------->
+<script type="text/javascript">
+	  jQuery(document).ready(function() {
+		jQuery('.submit_data1').click(function(){
+			//e.preventDefault();
+			var file_data  = jQuery('.video_img').prop('files')[0];
+			var form_data = new FormData();
+			
+			 form_data.append('file', file_data);
+			 form_data.append('mssge', mssge);
+             form_data.append('action', upload_profile_pic
+
+      jQuery(".submit_data1").attr("disabled", true);
+
+			jQuery.ajax({
+           	url: '<?php echo admin_url('admin-ajax.php'); ?>',
+           	type: 'post',
+                            contentType: false,
+                            processData: false,
+                            data: form_data,
+            
+						success: function (data) {
+							alert(data.status); 
+						}
+			});
+		});
+	});
+</script>
+	  
+	  
+<!---------------------Function Code -------------------->
+
+<?php	
+add_action('wp_ajax_upload_profile_pic', 'upload_profile_pic_func');
+add_action('wp_ajax_nopriv_upload_profile_pic', 'upload_profile_pic_func');
+function upload_profile_pic_func(){
+
+global $current_user, $wp_roles;
+
+       if (!function_exists('wp_handle_upload')) {
+           require_once(ABSPATH . 'wp-admin/includes/file.php');
+       }
+      $uploadedfile = $_FILES['file'];
+      $upload_overrides = array('test_form' => false);
+      $movefile = wp_handle_upload($uploadedfile, $upload_overrides);
+      $img_url =  $movefile['url'];
+	  
+	  if(!empty($img_url)){
+       $upload_profile_photo = update_user_meta( $current_user->ID, 'upload_profile_photo', $img_url );
+	  }
+	  
+         if($upload_profile_photo == true){
+            $done = '<span>Uploaded Successfully!.</span>'; 
+            
+         }else{
+            $done = '<span class="error">Something Went Wrong!.</span>';  
+         }
+         $response['status'] = $done;
+         wp_send_json($response);
+    die();
+}
