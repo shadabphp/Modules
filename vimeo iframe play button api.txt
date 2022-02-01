@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+jQuery(document).ready(function(){
+  jQuery('.play-icon').click(function(){
+        var iframe = jQuery('.iframe');
+        var iframePlayer = new Vimeo.Player(iframe);
+              iframePlayer.play();
+			iframePlayer.on('play', function(){
+			    jQuery('.play-icon').hide();
+			}); 
+			iframePlayer.on('pause', function(){
+			    jQuery('.play-icon').show();
+			});
+             		
+  });
+});
+</script>
+</head>
+<body>
+
+ <div class="cs-video-block">
+		  <iframe class="iframe" src="https://player.vimeo.com/video/624633817?h=59c65aca9c&amp;title=0&amp;byline=0&amp;portrait=0" width="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen=""></iframe>
+<div class="play-icon">click</div>
+		</div>
+
+</body>
+</html>
+
+
+
+
+ 

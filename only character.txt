@@ -1,0 +1,1 @@
+jQuery('#form-field-fname, #form-field-field_07a04ed, #form-field-name').attr('oninput',"value=value.replace(/[^a-z\s ]/gi,'')");

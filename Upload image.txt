@@ -1,0 +1,34 @@
+// Profile image uploading---------------
+
+									if (!function_exists('wp_handle_upload'))
+									{ 
+										 require_once( ABSPATH . '/wp-admin/includes/file.php' );
+										 require_once(ABSPATH . 'wp-admin/includes/image.php');
+											require_once(ABSPATH . 'wp-admin/includes/media.php');
+											//require_once(ABSPATH . 'wp-admin/includes/file.php');
+									}  
+
+													   
+
+										$uploadedfile1 = $_FILES['profile_photo'];
+										$upload_overrides1 = array( 'test_form' => false );
+
+										$movefile1 = wp_handle_upload( $uploadedfile1, $upload_overrides1 );
+									   
+										if ( $movefile1 && ! isset( $movefile1['error'] ) ) {
+											$imageurl1 = $movefile1['url'];
+										   
+										   
+										} else {
+										   //echo $movefile1['error'];
+										} 
+										if(!empty($imageurl1)){
+											$profile_photo = $imageurl1;
+										}else{
+											$profile_photo_value =  $_POST['profile_photo_value'];
+											$profile_photo = $profile_photo_value;
+										}
+
+
+<input type="file" name="profile_photo"  accept=".jpg,.jpeg,.png,.gif" value="<?php echo $result_data_p->profile_photo; ?>">
+										<input type="hidden" name="profile_photo_value" class="profile_photo_value" value="<?php echo $result_data_p->profile_photo; ?>"> </p>

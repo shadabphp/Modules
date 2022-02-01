@@ -1,0 +1,33 @@
+/*---------------------- JQury Code --------------------------*/
+<script type="text/javascript">
+	jQuery("#msform").on('submit',function(e){
+		e.preventDefault(); 
+	var all_cat = jQuery('#categories').val();
+		var pdata = {
+     action: "submit_step_one",
+	 all_cat: all_cat,	
+     postdata: jQuery(this).serialize()
+  }
+	        jQuery.ajax({
+							   url: '<?php echo admin_url('admin-ajax.php'); ?>',
+							   type: "POST",
+							   data:pdata,
+										success: function(response) { 
+												// alert(response);
+										  			
+									 },
+								});
+	});
+	
+</script>
+
+/*---------------------- Functions Code --------------------------*/
+
+<?php
+
+
+parse_str($_POST['postdata'], $temp);
+	$all_cat = $_POST['all_cat'];
+	
+	
+	 $name = $temp['your_name'];

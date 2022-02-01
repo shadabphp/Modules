@@ -1,0 +1,106 @@
+<!------------------- Html Form -------------->
+
+                       <form id="sign-up">
+				<div class="cs-row">
+					 <div class="cs-col-md-6 pd-r-10">
+						<label>First Name</label>
+						<input type="text" name="user-fname">
+					 </div>
+					 <div class="cs-col-md-6 pd-l-10">
+						<label>Last Name</label>
+						<input type="text" name="user-lname">
+					 </div>
+				</div>
+				<label>Email</label>
+				<input type="email" name="user-email">
+				<label>Password</label>
+				<input type="password" name="user-password">
+				<label>Confirm Password</label>
+				<input type="password" name="user-re-password">
+				<button class="btn-login">Create New Account</button>
+				<div class="status"></div>
+			</form>
+
+
+
+<!------------------- Jquery -------------->   
+
+<script>
+jQuery(document).ready(function(){
+  jQuery("form#sign-up").on('submit', function(e){
+        e.preventDefault();
+	     var fname = jQuery('input[name="user-fname"]').val();
+	     var lname = jQuery('input[name="user-lname"]').val();
+	     var email = jQuery('input[name="user-email"]').val();
+	     var password = jQuery('input[name="user-password"]').val();
+	     var repassword = jQuery('input[name="user-re-password"]').val();
+	  	 jQuery('form#sign-up div.status').text("Creating user info, please wait...");    
+	  jQuery.ajax({
+							   url: '<?php echo admin_url('admin-ajax.php'); ?>',
+							   type: "POST",
+							   data:{ 
+									action: 'sign_up_action', fname:fname, lname:lname, email:email, password:password, repassword:repassword },
+										success: function(response) {
+											if(response.status === 'done'){	
+												jQuery('form#sign-up div.status').text("User has been created!");
+											}else{
+												jQuery('form#sign-up div.status').text(response.status);
+											}	
+									 },
+								});
+  });
+});
+</script>     
+
+
+
+<!------------------- Functions file -------------->  
+
+
+add_action('wp_ajax_sign_up_action', 'sign_up_action_function');
+add_action('wp_ajax_nopriv_sign_up_action', 'sign_up_action_function');
+function sign_up_action_function() {
+	
+	  $fname = $_POST['fname'];
+	  $lname = $_POST['lname'];
+	  $email = $_POST['email'];
+	  $user_login = strstr($email, '@', true);
+	  $password = $_POST['password'];
+	  $repassword = $_POST['repassword'];
+	 
+	  $response = array();  
+	  if(email_exists($email)){
+		  $status = "User already exists";  
+	      $response['status'] = $status;
+	      wp_send_json($response);
+		  wp_die();
+	  }elseif($password !== $repassword){
+		  $status = "Passwrord doesn't match"; 	  
+	      $response['status'] = $status;
+	      wp_send_json($response);
+		  wp_die();
+	  }
+	  if($password == $repassword){
+		  $pass = $repassword;   
+	  }
+	  $userdata = array(    
+					'user_login'            => $user_login,
+		            'first_name'            => $fname,  
+					'last_name'             => $lname,
+		  			'user_email'            => $email,
+		  		    'user_pass'             => $pass,
+					'role'                  => 'subscriber',
+				);
+	$inserted = wp_insert_user( $userdata );
+	 if ( !is_wp_error( $inserted ) ) {
+		$status = "done";
+	}else{
+		 $status = "Somthing Went Wrong!";
+	 }
+	  
+	 $response['status'] = $status;
+	 wp_send_json($response);
+	 wp_die();
+	  
+	
+}

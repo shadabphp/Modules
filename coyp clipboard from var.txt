@@ -1,0 +1,6 @@
+$('.copy_icon').click(function(){
+		 var link = $(this).find('input').select().val();
+		 var dummy = $('<input>').val(link).appendTo('body').select()
+		 document.execCommand('copy');
+		  
+		});

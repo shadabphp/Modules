@@ -1,0 +1,6 @@
+function wc_remove_admin_notice_template_files() {
+    if ( class_exists( 'WC_Admin_Notices' ) ) {
+        WC_Admin_Notices::remove_notice( 'template_files' );
+    }
+}
+add_action( 'admin_init', 'wc_remove_admin_notice_template_files' );

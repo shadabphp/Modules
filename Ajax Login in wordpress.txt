@@ -1,0 +1,134 @@
+<?php  /* Template Name: Login */ ?>
+<?php
+get_header();
+?>
+
+<style>
+div.status{
+	color:red;
+}
+</style>
+
+
+
+<?php if(!is_user_logged_in()){ ?> 	
+<form id="login" action="" method="post" class="frm_div">
+  <div class="container " style="padding: 16px 16px 75px 16px;" >
+    <h1>Login</h1>
+    <p>Please fill in this form to login an account.</p>
+    
+    <label for="email"><b>Email or User Name</b></label>
+    <input type="text" placeholder="Enter Email" name="username" id="username" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" id="password" required>
+    <?php wp_nonce_field( 'ajax-login-nonce', 'security' ); ?>
+	<div class="status"></div>
+    <button id="show_login" class="signupbtn">Login</button>
+    </div>
+</form>
+ 
+<?php }else{  
+
+   
+}
+get_footer();
+?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+jQuery(document).ready(function($) {
+
+     
+
+    // Perform AJAX login on form submit
+    $('form#login').on('submit', function(e){
+        $('form#login div.status').show().text(ajax_login_object.loadingmessage);
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: ajax_login_object.ajaxurl,
+            data: { 
+                'action': 'ajaxlogin', //calls wp_ajax_nopriv_ajaxlogin
+                'username': $('form#login #username').val(), 
+                'password': $('form#login #password').val(), 
+                'security': $('form#login #security').val() },
+            success: function(data){
+                $('form#login div.status').text(data.message);
+                if (data.loggedin == true){
+                    document.location.href = ajax_login_object.redirecturl;
+                }
+            }
+        });
+        e.preventDefault();
+    });
+
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+Functions.php
+
+
+<?php
+
+// Custom Login Form 
+ 
+function ajax_login_init(){
+
+    wp_register_script('ajax-login-script', array('jquery') ); 
+    wp_enqueue_script('ajax-login-script');
+
+    wp_localize_script( 'ajax-login-script', 'ajax_login_object', array( 
+        'ajaxurl' => admin_url( 'admin-ajax.php' ),
+        'redirecturl' => home_url('dash'),
+        'loadingmessage' => __('Sending user info, please wait...')
+    ));
+
+    // Enable the user with no privileges to run ajax_login() in AJAX
+    add_action( 'wp_ajax_nopriv_ajaxlogin', 'ajax_login' );
+}
+
+// Execute the action only if the user isn't logged in
+if (!is_user_logged_in()) {
+    add_action('init', 'ajax_login_init');
+}
+ 
+ 
+function ajax_login(){
+
+    // First check the nonce, if it fails the function will break
+    check_ajax_referer( 'ajax-login-nonce', 'security' );
+
+    // Nonce is checked, get the POST data and sign user on
+    $info = array();
+    $info['user_login'] = $_POST['username'];
+    $info['user_password'] = $_POST['password'];
+    $info['remember'] = true;
+
+    $user_signon = wp_signon( $info, false );
+    if ( is_wp_error($user_signon) ){
+        echo json_encode(array('loggedin'=>false, 'message'=>__('Wrong username or password.')));
+    } else {
+        echo json_encode(array('loggedin'=>true, 'message'=>__('Login successful, redirecting...')));
+    }
+
+    die();
+}
+ 
+// End Custom Login Form  
+ 
+ 
+ 
+ 
+ 
+ ?>

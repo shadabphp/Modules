@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function displayContactDetails(id){
+            var contactName = "name-link-"+id;
+            var cfr = $('#'+contactName).find('.name2').text();
+            alert(cfr);
+          }
+</script>
+</head>
+<body>
+
+ <div class="info-and-actions">
+    <div class="info">
+      <div class="name-container" id="name-link-one">
+        <h4 class="name"><a href="#" title="Name" >Trader 1</a></h4>
+        <h4 class="name2"><a href="#" title="Name" >Trader 122</a></h4>
+      </div>
+    <div class="details-container">
+      <p class="tele">###############</p>
+      <p class="email">hello@url.com</p>
+    </div>
+      <div class="actions">
+        <button class="displayContactDetails" onclick="displayContactDetails('one')">Display contact details</button>
+      </div>
+    </div>
+    </div>
+    
+    <div class="info-and-actions">
+    <div class="info">
+      <div class="name-container"  id="name-link-two">
+        <h4 class="name"><a href="#" title="Name">Trader 2</a></h4>
+        <h4 class="name2"><a href="#" title="Name" >Trader ddf</a></h4>
+      </div>
+    <div class="details-container">
+      <p class="tele">###############</p>
+      <p class="email">hello@url.com</p>
+    </div>
+      <div class="actions">
+        <button class="displayContactDetails" onclick="displayContactDetails('two')">Display contact details</button>
+      </div>
+
+</body>
+</html>

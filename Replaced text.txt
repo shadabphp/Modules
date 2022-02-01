@@ -1,0 +1,21 @@
+Html Replace
+<script>
+jQuery(document).ready(function(){
+	jQuery('.cs-status-overly').each(function() {
+    var text = jQuery(this).html();
+    jQuery(this).html(text.replace(':25565', '')); 
+});
+
+});
+</script>
+
+Text Replace
+<script>
+jQuery(document).ready(function(){
+	jQuery('.cs-status-overly').each(function() {
+    var text = jQuery(this).text();
+    jQuery(this).text(text.replace(':25565', '')); 
+});
+
+});
+</script>

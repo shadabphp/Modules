@@ -1,0 +1,22 @@
+<script>
+jQuery(document).ready(function(){
+  jQuery("#cs-copy").click(function(){
+		debugger;
+		var htmldata = jQuery("#cs-copy").html();
+     var $temp = jQuery("<input>");
+     var form_url = jQuery(this).attr("data-url");
+     jQuery("body").append($temp);
+	   $temp.val(form_url).select();
+	   document.execCommand("copy");
+	   $temp.remove();
+    
+		 jQuery("#cs-copy").html('IP Copied!');
+		   setTimeout(function(){ 
+				jQuery("#cs-copy").html(htmldata);
+			 }, 2000);
+		
+  });
+ 
+});
+</script>
+<strong id="cs-copy" data-url="play.battleblocs.com">play.battleblocs.com</strong>

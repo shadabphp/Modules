@@ -1,0 +1,168 @@
+
+<!--Master Tab Column Start-->
+<div class="tab-column cs-tab-wrpr">
+	<!--Tab 1 Button-->
+	
+	<input type="radio" name="tab" id="tab-1">
+	<label for="tab-1" class="tab">Sign up</label>
+	<!--Tab 2 Button-->	
+	<input type="radio" name="tab" id="tab-2" checked>
+	<label for="tab-2" class="tab">Sign in</label>
+
+	<div class="tab-content">
+		<div class="tab_content tab-1 cs-form">
+			<div class="cs-row">
+				 <div class="cs-col-md-6 pd-r-10">
+				    <label>First Name</label>
+			        <input type="text" name="user-fname">
+			     </div>
+				 <div class="cs-col-md-6 pd-l-10">
+				    <label>Last Name</label>
+			        <input type="text" name="user-lname">
+			     </div>
+			</div>
+			<label>Email</label>
+			<input type="email" name="user-email">
+			<label>Password</label>
+			<input type="password" name="user-password">
+			<label>Confirm Password</label>
+			<input type="password" name="user-password">
+			<button class="btn-login" id="sign-up">Create New Account</button>
+		</div>
+	<!--Tab 2-->
+		<div class="tab_content tab-2 cs-form">
+			<label>Email</label>
+			<input type="email" name="user-email">
+			<label>Password</label>
+			<input type="password" name="user-password">
+			<a href="<?php echo get_site_url(); ?>/wp-login.php?action=lostpassword" class="cs-forgot-link">Forgot Password?</a>
+			<button class="btn-login" id="login">Login</button>
+			<div class="form-footer">
+			<p> Don’t have an account? <label for="tab-1" class="tab-link">Sign up</label></p> 
+		    </div>
+		</div>
+		 
+	</div>
+</div>
+<!--Master Tab Column End-->
+
+
+<style>
+    
+.tab-column label.tab {
+    font-size: 18px;
+    color: #949CAE;
+    padding: 0 18px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.tab-column label.tab:hover{
+    cursor:pointer;
+}
+/*Master Tab Column Tabs Hover*/
+.tab-column label:hover {
+    color: #000;
+}
+/*Master Tab Column Hide Radio Buttons*/
+.tab-column input {
+    display: none;
+}
+/*Master Tab Column Tab Checked*/
+.tab-column input:checked + label {
+    color: #000;
+}
+label[for="tab-2"] {
+	border-left: 2px solid #ab9e9e;
+}
+.tab-content {
+	margin-top: 30px;
+}
+/*Master Tab Column Tab Quantity*/
+.tab-column input[id=tab-1]:checked ~ .tab-content .tab-1,
+.tab-column input[id=tab-2]:checked ~ .tab-content .tab-2 {
+    display: block;
+}
+/*Master Tab Column Body*/
+.tab-column .tab_content {
+    display: none;
+    clear: both;
+    width: 100%;
+}
+/*Master Tab Column Body Background Per Tabs Selected*/
+.tab-column .cs-form input {
+	    display: block;
+    border: 1px solid #D4DCFF;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 3px;
+}
+.cs-tab-wrpr {
+	text-align: center;
+	margin: 40px 0;
+}
+.cs-tab-wrpr .tab-content {
+	max-width: 300px;
+	margin: auto;
+	padding: 40px 0;
+}
+.tab-column .cs-form{
+		text-align:left;
+}
+.tab-column .cs-form label{
+	  font-size: 18px;
+color: #5b5b5b;
+margin-bottom: 10px;
+display: block;
+}
+.cs-forgot-link {
+	float: right;
+	color: #747272;
+	position: relative;
+	top: -12px;
+}
+.btn-login {
+	background: #007FC5;
+	text-align: center;
+	width: 100%;
+	padding: 12px 0;
+	border: none;
+	font-size: 13px;
+	color: #fff;
+	border-radius: 5px;
+	-webkit-transition: all .3s;
+-o-transition: all .3s;
+transition: all .3s;
+}	
+.btn-login:hover{
+		background: #0C0B0D;
+}
+.form-footer {
+	margin-top: 50px;
+	text-align: center;
+}
+.form-footer p{
+		color: #5b5b5b;
+}
+.tab-link {
+	display: inline-block !important;
+	font-size: 12px !important;
+	color: #007FC5 !important;
+	cursor: pointer;
+}
+.cs-row {
+	display: flex;
+}
+.cs-col-md-6 {
+	width: 50%;
+}
+.pd-l-10{
+    padding-left: 10px;		
+}
+.pd-r-10{
+    padding-right: 10px;		
+}
+</style>

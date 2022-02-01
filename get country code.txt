@@ -1,0 +1,8 @@
+<?php
+ 
+$ip =  $_SERVER['REMOTE_ADDR'];   // ip = 8.8.8.8
+$country = file_get_contents('http://ipinfo.io/'.$ip.'/country'); // for more info visit [enter link description here][1] 
+echo $country;
+
+
+?>
