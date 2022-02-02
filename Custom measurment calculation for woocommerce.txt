@@ -1,0 +1,54 @@
+1. Create width and hieght field from wc field factory plugin and target for product single page.
+2. When user fill the form then value goes to cart data after that we ca make functions for calculation and set price of item.
+
+
+
+
+
+add_action( 'woocommerce_before_calculate_totals', 'conditionally_change_cart_items_price', 10, 1 );
+
+function conditionally_change_cart_items_price( $cart_object ) {
+    if ( is_admin() && ! defined( 'DOING_AJAX' ) )
+        return;
+
+    // add as many ids as you need
+    $targeted_product_ids = array( 119 );
+
+    // Set Here your custom price (1st purshase)
+    $custom_price = 120; // First purshase for target product
+
+
+    
+
+        foreach ( $cart_object->get_cart() as $cart_item ) {
+
+            $ff =  json_decode($cart_item['data']);
+			  
+			  
+			  $a_length_in = $cart_item['wccpf_a_length_in']['user_val']; 
+			  $b_width_in = $cart_item['wccpf_b_width_in']['user_val']; 
+			  $pro_price = $ff->price;
+			  
+			   $final = $pro_price*$a_length_in;
+			   
+			   
+
+            // When targeted product is in cart we change the price Or you can remove if condition for each product.
+            if ( in_array( $cart_item['product_id'], $targeted_product_ids ) ) {
+
+
+                // Woocommerce 3+ compatibility
+                if ( version_compare( WC_VERSION, '3.0', '<' ) )
+                    $cart_item['data']->price = $final;
+                else
+                    $cart_item['data']->set_price( $final );
+            }
+
+
+
+            
+        
+    }
+}
+
+
