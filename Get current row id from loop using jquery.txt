@@ -1,0 +1,15 @@
+<button data-id="1" class="cs_view">View1</button>
+<button data-id="2" class="cs_view">View2</button>
+<button data-id="3" class="cs_view">View3</button>
+
+
+<script>
+ 
+	
+  jQuery(".cs_view").click(function(){
+	
+    var row_id = jQuery(this).attr('data-id');
+	  alert(row_id);
+  });
+ 
+</script>
