@@ -1,0 +1,35 @@
+<div class="field">
+			<div class="ds-product-fileUpload">
+			    <input type="hidden" name="Other_images[]" class="ima_value_update" value="">
+                <input type="file" class="img_upload dsupload" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple="" required="">
+			  <span>Upload Picture</span> <span class="just-drag-con">Or Just Drag in Drop</span>
+				</div>
+			    <div class="display_images"></div>
+          </div>
+<!-------------------- Upload Images --------------------->
+<script type="text/javascript">
+   jQuery('body').on('change', '.img_upload', function() {
+	     spinner.show();
+	   file_obj = jQuery(this).prop('files');
+        form_data = new FormData();
+        for(i=0; i<file_obj.length; i++) {
+            form_data.append('file[]', file_obj[i]);
+        }
+        form_data.append('action', 'file_upload1');
+		var thisVar = jQuery(this);
+        $.ajax({
+            url: '<?php echo admin_url("admin-ajax.php"); ?>',
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            data: form_data,
+            success: function (response) {
+				thisVar.prev().val(response.images_url); 
+				var parent_div = thisVar.parent().closest('.ds-product-fileUpload');
+				parent_div.next().filter('.display_images').html(response.images);
+				 spinner.hide();
+            }
+        });
+ });
+ 
+</script>
