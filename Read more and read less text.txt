@@ -1,0 +1,36 @@
+<div class="cs-rdmore">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div> 
+
+<script>
+/*------------------ Read more button ----------------*/
+	jQuery(function() {
+
+  var minimized_elements = jQuery('.cs-rdmore');
+
+  minimized_elements.each(function() {
+    var t = jQuery(this).html();
+    if (t.length < 80) return;
+
+    jQuery(this).append('<br><a href="#" class="less">SHOW LESS</a>');
+    jQuery(this).wrapInner('<div class="original"></div>');
+
+    jQuery(this).append('<div class="intro">' +
+      t.slice(0, 80) +
+      '<span>... </span><br><a href="#" class="more">MORE INFO <i aria-hidden="true" class="fas fa-chevron-right"></i></a></div>'
+    );
+
+    jQuery(this).find('.original').hide();
+  });
+
+  jQuery('a.more', minimized_elements).click(function(event) {
+    event.preventDefault();
+    jQuery(this).closest('.intro').hide().prev('.original').show();
+  });
+
+  jQuery('a.less', minimized_elements).click(function(event) {
+    event.preventDefault();
+    jQuery(this).closest('.original').hide().next('.intro').show();
+
+  });
+
+});
+</script>
