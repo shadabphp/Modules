@@ -49,8 +49,5 @@ if ( $the_query1->have_posts() ) { ?>
     // no posts found
 }
 	
-	
-	
-}
 
 ?>
