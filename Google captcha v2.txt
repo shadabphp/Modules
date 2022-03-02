@@ -1,0 +1,26 @@
+
+<!-------------------- Captch v2  --------------------->
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<?php
+
+if(isset($_POST['submit'])){
+	
+ if(!empty($_POST['g-recaptcha-response'])){
+ 
+ 
+ }else{
+	echo '<script>alert("Some error in vrifying g-recaptcha");</script>';
+}
+
+
+}
+
+?>
+
+<form action="" class="cs_frm_div" method="post" enctype="multipart/form-data">
+            <div class="col-md-4 form-captcha">
+						 <div class="g-recaptcha" data-sitekey="6Le1axoeAAAAAJfnvIRJ07LAys-RlQ4YDzHy9IFS" style="text-align:center;"></div>
+            </div>
+	 <button type="submit" name="submit">Submit</button>
+</form> 
