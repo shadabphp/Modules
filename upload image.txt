@@ -1,0 +1,40 @@
+// Profile image uploading---------------
+
+	if (!function_exists('wp_handle_upload'))
+{ 
+     require_once( ABSPATH . '/wp-admin/includes/file.php' );
+	 require_once(ABSPATH . 'wp-admin/includes/image.php');
+        require_once(ABSPATH . 'wp-admin/includes/media.php');
+        //require_once(ABSPATH . 'wp-admin/includes/file.php');
+}  
+
+                   
+
+    $uploadedfile1 = $_FILES['profile_photo'];
+    $upload_overrides1 = array( 'test_form' => false );
+
+    $movefile1 = wp_handle_upload( $uploadedfile1, $upload_overrides1 );
+   
+    if ( $movefile1 && ! isset( $movefile1['error'] ) ) {
+        $imageurl1 = $movefile1['url'];
+	   
+       
+    } else {
+       //echo $movefile1['error'];
+    } 
+
+
+<form action="" class="cs_frm_div" method="post" enctype="multipart/form-data">
+					  <div class="row cs-form-row">
+					  
+					  <div class="col-md-6">
+					    <label for="Profile Photo">Photo of child</label>
+						<input type="file" name="profile_photo" accept=".jpg,.jpeg,.png,.gif">
+					  </div>
+					  
+					  <div class="col-md-12">
+					    <button type="submit" name="submit" class="signupbtn">Submit</button>
+					  </div>
+ </div>
+</form> 
+
