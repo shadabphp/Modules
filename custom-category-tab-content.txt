@@ -1,0 +1,118 @@
+<style type="text/css">
+ul.pro-tab {
+    text-align: center;
+   
+}
+ul.pro-tab li {
+    display: inline-block;
+    padding: 0px 20px;
+    text-transform: uppercase;
+    border-right: 3px solid #006a20;
+    cursor: pointer;
+    letter-spacing: 2px;
+}
+ul.pro-tab li:last-child{
+	border-right: none;
+}
+ul.pro-tab li.active-tab{
+	font-weight:bold;
+}
+#loader {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.75) url(<?php echo get_stylesheet_directory_uri(); ?>/img/loading-buffering.gif) no-repeat center center;
+  z-index: 10000;
+  background-size: 4%;
+}
+</style>
+<div id="loader"></div> 
+<div class="cs-container">
+<ul class="pro-tab">
+<li data-slug="lavash">Lavash</li>
+<li data-slug="sangak">Sangak</li>
+<li data-slug="sangak-crisps">Sangak Crisps</li>
+<li data-slug="markook">Markook</li>
+</ul>
+<div class="pro-tab-response">
+
+</div>
+</div>
+
+
+<script>
+jQuery(document).ready(function(){
+	 var spinner = jQuery('#loader');
+  jQuery(".pro-tab li").click(function(){
+	   spinner.show();
+    jQuery(".pro-tab li").removeClass("active-tab");
+    jQuery(this).addClass("active-tab");
+	 var selected = jQuery(".pro-tab li.active-tab").attr('data-slug');
+	  
+	 jQuery.ajax({
+							   url: '<?php echo admin_url('admin-ajax.php'); ?>',
+							   type: "POST",
+							   data:{ 
+									    action: 'get_tab_data', selected_tab:selected },
+										success: function(data) {											
+											jQuery('.pro-tab-response').html(data.shortcode);	
+											 spinner.hide();
+									 },
+								}); 
+	  
+	  
+  });
+  
+ jQuery(".pro-tab li:first-child").trigger("click");
+  
+  
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+// Functions file code
+
+
+/*---------------- Return Hoomepage Tab Products -------------*/
+add_action('wp_ajax_get_tab_data', 'get_tab_data_function');
+add_action('wp_ajax_nopriv_get_tab_data', 'get_tab_data_function');
+function get_tab_data_function() {
+	
+	 $selected_tab = $_POST['selected_tab'];
+	 $shortcode = '<h2>Products Not Found!</h2>';
+	 if($selected_tab == 'lavash'){
+		 $shortcode = do_shortcode('[products limit="3" columns="3" category="hoodies"]');
+	 }
+	 if($selected_tab == 'sangak'){
+		 $shortcode = do_shortcode('[products limit="3" columns="3" category="accessories"]');
+	 }
+	 if($selected_tab == 'sangak-crisps'){
+		 $shortcode = do_shortcode('[products limit="3" columns="3" category="tshirts"]');
+	 }
+	 if($selected_tab == 'markook'){
+		 $shortcode = do_shortcode('[products limit="3" columns="3" category="accessories"]');
+	 }
+	
+	 $response = array();
+	 
+	 $response['shortcode'] = $shortcode;
+	 wp_send_json($response);
+	 wp_die();
+	 
+	
+	
+}
+
+/*---------------- End Tab function -------------*/
