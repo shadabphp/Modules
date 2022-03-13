@@ -1,0 +1,42 @@
+style.css
+
+/*
+ Theme Name:   Razzi Child
+ Theme URI:    http://demo4.drfuri.com/razzi-child/
+ Description:  Razzi Child Child Theme
+ Author:       Chandra Mohan
+ Author URI:   https://skstechgroup.com/
+ Template:     razzi
+ Version:      1.0.0
+ Text Domain:  razzichild
+*/
+
+
+
+index.php
+
+functions.php
+
+<?php
+
+// for include parent-style
+
+add_action( 'wp_enqueue_scripts', 'enqueue_parent_styles' );
+function enqueue_parent_styles() {
+    wp_enqueue_style( 'parent-style', get_template_directory_uri().'/style.css' );
+}
+
+
+// for include parent-style
+
+if(!function_exists('razzi_qode_child_theme_enqueue_scripts')) {
+
+	Function razzi_qode_child_theme_enqueue_scripts() {
+		wp_register_style('razzi-childstyle', get_stylesheet_directory_uri() . '/style.css');
+		wp_enqueue_style('razzi-childstyle');
+	}
+
+	add_action('wp_enqueue_scripts', 'razzi_qode_child_theme_enqueue_scripts', 11);
+}
+
+?>
