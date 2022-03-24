@@ -1,3 +1,65 @@
+<style>
+.cs-accordian.accordian .title {
+    padding: 10px 20px;
+    margin: 20px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    font-weight: 600;
+    transition: all .25s ease;
+    font-size: 18px;
+    background: #f7f7f9;
+}
+
+.cs-accordian.accordian ul li:last-child .title {
+  border-bottom: 0;
+}
+
+.cs-accordian.accordian ul ul li a {
+  display: block;
+  background-color: #eee;
+  padding: 1rem;
+  color: #777;
+  border-bottom: 1px solid rgba(0, 0, 0, .05);
+}
+
+.cs-accordian.accordian ul ul {
+  display: none;
+}
+
+.cs-accordian .open {
+  transform: rotate(45deg);
+  transition: all .25s ease;
+}
+
+.cs-accordian.accordian ul ul li:last-child a {
+  border-bottom: 0;
+}
+
+.cs-accordian .fa {
+  transition: all .25s ease;
+  float: right;
+}
+
+.cs-accordian.accordian h3 {
+  cursor: pointer;
+}
+.cs-accordian .faq-content{
+	display:none;
+	font-size: 15px;
+}
+.cs-accordian.accordian ul {
+    padding: 0;
+    list-style: none;
+}
+h3.title.active {
+    background: #006a20 !important;
+    color: white;
+}
+h3.title.active .fa{
+	 transform: rotate(45deg);
+  transition: all .25s ease;
+}
+</style>
+
 <div class="cs-accordian accordian">
 	  <ul>
 	  
