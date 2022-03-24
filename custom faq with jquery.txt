@@ -1,0 +1,72 @@
+<div class="cs-accordian accordian">
+	  <ul>
+	  
+
+	
+	<?php
+	// Check rows exists.
+if( have_rows('faq_item') ):
+
+    // Loop through rows.
+	$i = 0;
+    while( have_rows('faq_item') ) : the_row();
+    $i++;
+        // Load sub field value.
+        $title = get_sub_field('title');
+        $content = get_sub_field('content');
+		 ?>
+		<li>
+		  <h3 class="title <?php if($i == 1){ echo 'active'; } ?>"><span class="fa fa-plus"></span>
+			<?php echo $title; ?>
+		  </h3>
+		  <div class="faq-content">
+			<?php echo $content; ?>
+		  </div>
+		</li>	 
+		 <?php
+        // Do something...
+
+    // End loop.
+    endwhile;
+
+
+	
+	?>
+	  
+		 
+	 
+	
+	<?php
+	
+// No value.
+else :
+    echo '<p class="not-found">No item Found!</p>';
+endif;
+	?>
+</ul>
+	</div>
+  <?php	
+	
+	?>
+	
+	
+	
+	
+<script>
+
+jQuery(function(){
+
+  jQuery(".accordian h3").click(function(e){
+  jQuery('.accordian h3').removeClass('active');
+  jQuery(this).addClass('active');
+  jQuery(".accordian ul .faq-content").slideUp();
+    if (jQuery(this).next().is(":hidden")){
+    jQuery(this).next().slideDown();
+    }else{
+		jQuery('.accordian h3').removeClass('active');
+	}
+  });
+  
+  jQuery('.accordian h3.title.active').trigger( "click" );
+});
+</script>
