@@ -1,0 +1,15 @@
+<?php
+
+$form_id = $_SESSION['custom_id'];
+ global $wpdb;
+ $pre = $wpdb->prefix;
+ $valuation_table = $wpdb->prefix.'valuation_data';
+ 
+ $update_category_data = $wpdb->update( $valuation_table , array(
+				'payment_status' => 'Done',
+				 'created_date' => $today_data
+			 ), array('custom_id'=> $_SESSION['custom_id']));
+			 
+			 
+			 
+?>
