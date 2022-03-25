@@ -1,0 +1,35 @@
+      <div class="customer-item-details">
+<?php 
+ $user_id = get_current_user_id();
+ 
+ global $wpdb;
+ $pre = $wpdb->prefix;
+ $valuation_table = $wpdb->prefix.'valuation_data';
+ $all_category_data = $wpdb->prepare( "SELECT * FROM $valuation_table WHERE user_id = '$user_id' AND payment_status = 'Done'" );
+ $results_data = $wpdb->get_results( $all_category_data ); 
+ if(!empty($results_data)){		 
+ foreach($results_data as $key => $paid_data) { 
+             $category_name = $paid_data->category_name;
+             $payment_status = $paid_data->payment_status;
+             $custom_id = $paid_data->custom_id;
+ ?>		 
+		 
+		  
+         <div class="row category-decription-cover-area">
+		 <div class="col-2"><span class="top-head-bold">Order No.</span><p class="category-dec"><?php echo $custom_id; ?></p></div>
+         <div class="col-3"><span class="top-head-bold">Category</span><p class="category-dec"><?php echo $paid_data->category_name; ?></p></div>
+         <div class="col-4"><span class="top-head-bold">Payment Status</span><p class="category-dec"><?php echo $payment_status; ?></p></div>
+         <div class="col-3"><span class="top-head-bold">Action</span><p class="downloaded-certicate-clc category-dec"><button class="order-btn"  data-id="<?php echo $custom_id; ?>">View Order</button></p></div>
+         </div>
+<?php 
+ }
+     
+ }else{
+     echo '<div class="no-item">No Item Found</div>';
+ } 
+
+
+
+?>
+ 
+      </div>

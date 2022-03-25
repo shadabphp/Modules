@@ -1,0 +1,18 @@
+    global $wpdb;
+    $pre = $wpdb->prefix;
+    $valuation_table = $wpdb->prefix.'valuation_data';
+
+	$insert_category_data = $wpdb->insert($valuation_table, array(
+				'payment_status' => 'Pending',
+			    'amount' => $price,
+				'category_name' => $total_cat,
+				'category_data' => $data_json,
+				'no_of_items' => $count,
+				'created_date' => $today_data,
+				'custom_id' => $_SESSION['custom_id'],
+			    'user_id'=> $temp['user_id'],
+			    'user_email'=> $temp['user_email'],
+			    'user_name'=> $temp['user_name'],
+			    'billing_city'=> $temp['billing_city'],
+			    'billing_state'=> $temp['billing_state']
+			));
