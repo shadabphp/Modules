@@ -30,7 +30,7 @@
 </div> 
 
 
-
+// This script can paste out of the loop
 <script>
 jQuery(document).ready(function(){
 	jQuery(document).on("click",".gallimg img",function(){
