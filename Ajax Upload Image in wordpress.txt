@@ -18,7 +18,7 @@
 			
 			 form_data.append('file', file_data);
 			 form_data.append('mssge', mssge);
-             form_data.append('action', upload_profile_pic
+             form_data.append('action', 'upload_profile_pic');
 
       jQuery(".submit_data1").attr("disabled", true);
 
