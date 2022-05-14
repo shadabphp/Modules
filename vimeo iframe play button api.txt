@@ -26,6 +26,12 @@ jQuery(document).ready(function(){
 		  <iframe class="iframe" src="https://player.vimeo.com/video/624633817?h=59c65aca9c&amp;title=0&amp;byline=0&amp;portrait=0" width="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen=""></iframe>
 <div class="play-icon">click</div>
 		</div>
+		
+		
+// For autoplay
+
+<iframe src="https://player.vimeo.com/video/709605272??autoplay=1&loop=1&autopause=0&background=1&color=ffffff&controls=2&portrait=0" width="900" height= "600"  frameborder="0" allow="autoplay; fullscreen"allowfullscreen></iframe>
+
 
 </body>
 </html>
