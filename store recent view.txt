@@ -1,0 +1,27 @@
+<?php 
+
+    $current_user_id = get_current_user_id(); // Alternative for getting current user ID
+    $key = 'setreview_post';
+	$data = array();
+	
+	$post_id = get_the_ID();
+
+	$getdata = get_user_meta( $current_user_id, $key, true );
+	
+	if(isset($getdata) && !empty($getdata)){
+		$unserialize = unserialize($getdata);
+		$data = $unserialize;
+		$data[] = $post_id;
+		$data =  array_unique($data);
+	    $serialize = serialize($data);
+
+	}
+	else{
+       $data[] = $post_id;
+	
+	}
+	
+	$serialize = serialize($data);
+	
+		
+	update_user_meta( $current_user_id, $key, $serialize );
