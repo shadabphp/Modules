@@ -1,0 +1,20 @@
+<?php 
+
+$db_name = 'sample_db';
+$host = 'localhost';
+$user = 'root';
+$pass = '';
+
+$conn = new mysqli($host,$user,$pass,$db_name);
+$limit = 10;
+$pageNumber = 3;
+$offset = ($limit * $pageNumber) - $limit;
+$sql = "select * from city LIMIT $limit OFFSET $offset";
+
+$result = $conn->query($sql);
+
+while($row = $result->fetch_assoc()){
+    echo $row['ID'].'<br>';
+}
+
+?>
