@@ -1,0 +1,5 @@
+DELETE FROM wp_users WHERE ID IN (
+  SELECT user_id FROM wp_usermeta WHERE meta_key = 'wp_capabilities' AND (
+    meta_value LIKE '%customer%' OR meta_value LIKE '%subscriber%'
+  )
+);
