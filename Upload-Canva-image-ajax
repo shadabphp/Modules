@@ -1,0 +1,77 @@
+
+
+
+function take_screenshot(data, post_id){
+	
+	html2canvas(document.getElementById("box-container-share")).then(function(canvas){
+           
+		  save_file(canvas.toDataURL(), post_id);
+	   });
+
+	
+         
+
+ }
+
+ function save_file(data, post_id){
+	 
+  var pdata = {
+     action: "getimage",	
+     postdata: data,
+	 post_id: post_id
+     }
+  jQuery.ajax({
+							   url: '<?php echo admin_url('admin-ajax.php'); ?>',
+							   type: "POST",
+							   data:pdata,
+										success: function(response) { 
+											jQuery('#display_scrn').attr('src',response.status);
+											var txt = jQuery('#share_text').text();
+											
+											var sharelink = 'http://www.linkedin.com/shareArticle?mini=true&url='+response.status; 
+											 jQuery('.linkhref').attr('href', sharelink);
+
+											 jQuery('html, body').animate({
+											'scrollTop' : jQuery(".test_title").position().top +100
+										}, 1000);
+										
+
+										setTimeout(function(){
+											jQuery('#box-container-share').css('display','none');
+												 
+												}, 4000);
+												spinner.hide();	 
+									 },
+								});
+}
+
+
+
+
+add_action('wp_ajax_getimage', 'getimage_function');
+add_action('wp_ajax_nopriv_getimage', 'getimage_function');
+function getimage_function() {
+	$response = [];
+	$pdir=  wp_upload_dir();
+	
+	$path = $pdir['basedir'].'/canvas/';
+	$url = $pdir['baseurl'].'/canvas/';
+	 
+	$file = $_POST['postdata'];
+	$post_id = $_POST['post_id'];
+	//define('UPLOAD_DIR', 'images/');  
+	$img = str_replace('data:image/png;base64,', '', $file);  
+	 
+	$img = str_replace(' ', '+', $img);  
+	$data = base64_decode($img);  
+	$uniqe = uniqid() . '.jpg'; 
+	$file_name =  $url . $uniqe;
+	$file = $path . $uniqe; 
+
+	update_post_meta( $post_id, 'linkedin_screenshot', $file_name );
+	
+	$success = file_put_contents($file, $data);  
+	$response['status'] = $file_name;
+	wp_send_json($response);
+	wp_die();
+}
