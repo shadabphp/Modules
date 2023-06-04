@@ -34,6 +34,7 @@ function stripe_payment_function() {
  
 
 if (isset($_POST['card_number'])) {
+    // downlaod this library from this url: https://github.com/stripe/stripe-php
     require_once(get_template_directory() . '/stripe-php/init.php');
     \Stripe\Stripe::setApiKey('sk_test_pG6Rpq6gboGdCXzksKMYvcjR006f3Tavwj');
 
